@@ -1,0 +1,609 @@
+<title>HYBEC Homepage</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&family=Michroma&display=swap">
+<!--PREVIEW_FONTS-->
+<style>
+/* Layout: warm stone page; dark, rounded "framed" cards hold the night imagery. Pill nav, bento under the hero, quiet serif display, wide grotesk labels. */
+:root{
+  --paper:#ebe6de;     /* page */
+  --cream:#f5f1ea;     /* light panels */
+  --ink:#181411;       /* text on paper */
+  --mute:#6f665c;      /* secondary text on paper */
+  --night:#13100d;     /* dark cards */
+  --bone:#f3ece2;      /* text on dark */
+  --amber:#c88a4b;     /* used sparingly */
+  --line:rgba(24,20,17,.12);
+  --gl:rgba(255,248,240,.10);  /* glass fill */
+  --gl-b:rgba(255,248,240,.20);/* glass border */
+  --serif:"Cormorant Garamond","Cormorant",Garamond,"Times New Roman",serif;
+  --sans:"Manrope","Helvetica Neue",Arial,system-ui,sans-serif;
+  --wide:"Michroma","Eurostile","Microgramma","Arial Black",sans-serif;
+  --r:26px;
+  --pad:max(12px,env(safe-area-inset-left,0px));
+  --ease:cubic-bezier(.22,.7,.12,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--paper);scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--paper)}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:1.5px solid var(--amber);outline-offset:3px}
+.page{padding-left:var(--pad);padding-right:max(12px,env(safe-area-inset-right,0px))}
+.in-pad{padding-left:clamp(8px,3.6vw,52px);padding-right:clamp(8px,3.6vw,52px)}
+.label{font-family:var(--wide);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase}
+.serif{font-family:var(--serif);font-weight:300;letter-spacing:-.01em;line-height:1}
+h1,h2,h3{margin:0;font-weight:300;text-wrap:balance}
+p{margin:0}
+.pill{display:inline-flex;align-items:center;gap:12px;height:46px;padding:0 6px 0 20px;border-radius:999px;font-family:var(--wide);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;transition:background .3s,color .3s,border-color .3s}
+.pill .ar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;transition:transform .4s var(--ease)}
+.pill:hover .ar{transform:rotate(45deg)}
+.pill .ar svg{width:12px;height:12px}
+.pill--light{background:var(--bone);color:var(--ink)}.pill--light .ar{background:var(--ink);color:var(--bone)}
+.pill--glass{border:1px solid var(--gl-b);color:var(--bone);background:rgba(255,248,240,.04)}.pill--glass .ar{background:var(--bone);color:var(--ink)}
+.pill--ink{border:1px solid var(--line);color:var(--ink)}.pill--ink .ar{background:var(--ink);color:var(--bone)}
+.pill--ink:hover{border-color:var(--ink)}
+.circ{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex:none;transition:background .3s,transform .4s var(--ease)}
+.circ svg{width:13px;height:13px}
+.circ--glass{background:var(--gl);border:1px solid var(--gl-b);color:var(--bone);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.circ--glass:hover{background:rgba(255,248,240,.2)}
+
+/* ---------- intro ---------- */
+.intro{position:fixed;inset:0;z-index:100;background:var(--night);display:grid;place-items:center;transition:opacity .8s var(--ease),visibility .8s;animation:introGone 0s 3.4s forwards}
+.intro.done{opacity:0;visibility:hidden}
+.intro svg{width:min(170px,40vw);height:auto;overflow:visible}
+.lk path{fill:var(--bone)}
+.lk .w,.lk .q,.lk .t{transform-box:fill-box;transform-origin:center}
+.lk .w.l{animation:wl 1s var(--ease) .1s both}.lk .w.r{animation:wr 1s var(--ease) .1s both}
+.lk .q{fill:#e7b47a;animation:qon .9s steps(1) both;filter:drop-shadow(0 0 14px rgba(231,180,122,.8))}
+.lk .q.a{animation-delay:.75s}.lk .q.b{animation-delay:.88s}
+.lk .t{animation:up .8s var(--ease) 1s both}
+@keyframes wl{from{transform:translateX(-40%);opacity:0}to{transform:none;opacity:1}}
+@keyframes wr{from{transform:translateX(40%);opacity:0}to{transform:none;opacity:1}}
+@keyframes qon{0%{opacity:0}30%{opacity:1}42%{opacity:.2}56%{opacity:1}100%{opacity:1}}
+@keyframes up{from{transform:translateY(25%);opacity:0}to{transform:none;opacity:1}}
+@keyframes introGone{to{opacity:0;visibility:hidden}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;margin-top:max(12px,env(safe-area-inset-top,0px));border-radius:var(--r);overflow:hidden;background:var(--night);color:var(--bone);height:clamp(620px,calc(100svh - 24px),960px);isolation:isolate}
+.hero-media{position:absolute;inset:0;overflow:hidden}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:70% 50%;transform:scale(1.06);transition:transform 2.6s var(--ease)}
+.ready .hero-media img{transform:scale(1)}
+.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,8,7,.72) 0%,rgba(10,8,7,.35) 34%,rgba(10,8,7,0) 60%),linear-gradient(180deg,rgba(10,8,7,.5) 0%,rgba(10,8,7,0) 20%,rgba(10,8,7,0) 62%,rgba(10,8,7,.62) 100%)}
+.bar{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(16px,2.4vw,30px)}
+.logo{display:flex;align-items:center;gap:11px;color:var(--bone)}
+.logo .mk{height:34px;width:auto}
+.logo .mk .sq{fill:#e7b47a}
+.logo .wm{display:grid;gap:4px}.logo .wm .w{width:104px;height:auto}.logo .wm .t{width:58px;height:auto;margin-left:23px;opacity:.75}
+.nav{display:flex;gap:4px;padding:5px;border-radius:999px;background:var(--gl);border:1px solid var(--gl-b);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.nav a{padding:9px 16px;border-radius:999px;font-size:.82rem;font-weight:500;color:rgba(243,236,226,.86);transition:background .3s,color .3s}
+.nav a:hover,.nav a.on{background:rgba(255,248,240,.14);color:var(--bone)}
+.bar-r{display:flex;align-items:center;gap:8px}
+.menu{display:none}
+.hero-body{position:absolute;z-index:3;left:0;right:0;bottom:0;top:0;display:grid;grid-template-rows:1fr auto;padding:110px clamp(18px,3.6vw,52px) clamp(18px,2.6vw,30px)}
+.hb-main{align-self:center;display:grid;gap:26px;max-width:760px}
+.hb-main .label{color:rgba(243,236,226,.75);display:flex;gap:12px;align-items:center}
+.hb-main .label i{width:22px;height:1px;background:currentColor}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(3.5rem,8.6vw,9.4rem);line-height:.88;letter-spacing:-.025em}
+.hero h1 span{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 span b{display:block;font-weight:300;transform:translateY(105%);transition:transform 1.3s var(--ease)}
+.hero h1 span:nth-child(2) b{transition-delay:.12s;font-style:italic}
+.ready .hero h1 span b{transform:none}
+.hb-sub{display:flex;flex-wrap:wrap;align-items:center;gap:18px 26px}
+.hb-sub p{max-width:34ch;color:rgba(243,236,226,.82);font-size:.95rem}
+.hb-note{position:absolute;right:clamp(18px,3.6vw,52px);top:22%;max-width:250px;font-family:var(--serif);font-style:italic;font-size:1.22rem;line-height:1.3;color:rgba(243,236,226,.88)}
+.hb-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;max-width:620px}
+.chip{display:inline-flex;align-items:center;gap:9px;height:36px;padding:0 15px;border-radius:999px;border:1px solid var(--gl-b);background:rgba(255,248,240,.04);font-size:.8rem;color:rgba(243,236,226,.9);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .3s,color .3s}
+.chip:first-child,.chip:hover{background:var(--bone);color:var(--ink)}
+.chip::after{content:"✱";font-size:.7rem;opacity:.75}
+.hb-r{display:flex;gap:8px;align-items:center}
+.hb-r .label{color:rgba(243,236,226,.6);margin-right:6px}
+/* callout */
+.call{position:absolute;z-index:4;left:0;top:0;pointer-events:none;opacity:0;transition:opacity .8s .9s}
+.ready .call{opacity:1}
+.call .dot{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;border:1px solid var(--bone);display:grid;place-items:center}
+.call .dot::after{content:"";width:4px;height:4px;border-radius:50%;background:var(--bone)}
+.call .dot::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(243,236,226,.4);animation:ping 2.4s var(--ease) infinite}
+@keyframes ping{from{transform:scale(.6);opacity:1}to{transform:scale(1.8);opacity:0}}
+.call .ln{position:absolute;left:0;bottom:7px;width:1px;height:92px;background:rgba(243,236,226,.7)}
+.call .ln2{position:absolute;left:0;top:-99px;width:70px;height:1px;background:rgba(243,236,226,.7)}
+.call .cc{position:absolute;left:70px;top:-150px;width:220px;padding:14px 16px;border-radius:16px;background:rgba(30,24,20,.42);border:1px solid var(--gl-b);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.call .cc strong{display:block;font-weight:500;font-size:.88rem}
+.call .cc span{display:block;font-size:.75rem;color:rgba(243,236,226,.7);margin-top:2px}
+.call .cc em{display:block;margin-top:10px;padding-top:10px;border-top:1px solid var(--gl-b);font-style:normal;font-family:var(--wide);font-size:.62rem;letter-spacing:.1em}
+@media (max-width:1060px){.nav{display:none}.menu{display:grid}.hb-note{display:none}.bar-r .pill{display:none}}
+@media (max-width:760px){
+  .hero{height:auto;min-height:0}
+  .hero-media{position:relative;height:56svh;min-height:380px}
+  .hero-media img{object-position:66% 50%}
+  .hero-media::after{background:linear-gradient(180deg,rgba(10,8,7,.55) 0%,rgba(10,8,7,0) 26%,rgba(10,8,7,0) 55%,var(--night) 100%)}
+  .hero-body{position:relative;padding:0 18px 20px;margin-top:-120px;gap:26px}
+  .call{display:none}
+  .hb-foot{flex-direction:column;align-items:flex-start}
+}
+
+/* ---------- drawer ---------- */
+.drawer{position:fixed;inset:0;z-index:80;background:var(--night);color:var(--bone);display:flex;flex-direction:column;justify-content:space-between;padding:calc(24px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px))}
+.drawer nav{display:grid;gap:4px}
+.drawer nav a{font-family:var(--serif);font-weight:300;font-size:2.6rem;line-height:1.15}
+.drawer .top{display:flex;justify-content:space-between;align-items:center}
+
+/* ---------- bento ---------- */
+.bento{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:12px}
+.tile{position:relative;border-radius:var(--r);overflow:hidden;background:var(--night);color:var(--bone);min-height:300px}
+.t-feat{display:grid;grid-template-columns:1.15fr 1fr}
+.t-feat video,.t-feat .vimg{width:100%;height:100%;object-fit:cover}
+.t-feat .tx{position:relative;padding:22px 24px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(90deg,rgba(19,16,13,0),var(--night) 26%);margin-left:-60px;padding-left:72px}
+.tag{align-self:flex-start;display:inline-flex;height:26px;align-items:center;padding:0 12px;border-radius:999px;border:1px solid var(--gl-b);font-size:.7rem;color:rgba(243,236,226,.8)}
+.t-feat h3{font-family:var(--serif);font-size:clamp(1.8rem,2.4vw,2.4rem);line-height:1.02}
+.t-feat .tx p{font-size:.84rem;color:rgba(243,236,226,.7);margin-top:8px}
+.tlink{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:500;margin-top:16px}
+.tlink svg{width:11px;height:11px;transition:transform .4s var(--ease)}
+.tlink:hover svg{transform:rotate(45deg)}
+.t-forms{padding:18px;display:grid;grid-template-rows:auto 1fr;gap:14px;background:#1c1713}
+.t-forms .hd{display:flex;justify-content:space-between;gap:10px;padding:4px 4px 0}
+.t-forms h3{font-family:var(--serif);font-size:1.75rem;line-height:1}
+.t-forms .hd p{font-size:.78rem;color:rgba(243,236,226,.62);margin-top:6px}
+.t-forms .circ{width:34px;height:34px}
+.t-forms .inner{border-radius:16px;overflow:hidden;min-height:150px;position:relative}
+.t-forms .inner video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.t-close img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.t-close::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,7,.55),rgba(10,8,7,0) 40%);pointer-events:none}
+.t-close h3{position:absolute;z-index:2;left:22px;top:18px;font-family:var(--serif);font-size:1.75rem}
+.hs{position:absolute;z-index:3;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:var(--bone);color:var(--ink);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(243,236,226,.22);transition:transform .3s var(--ease)}
+.hs svg{width:11px;height:11px;transition:transform .3s}
+.hs[aria-expanded="true"] svg{transform:rotate(45deg)}
+.hs:hover{transform:scale(1.08)}
+.hs-tip{position:absolute;z-index:4;padding:9px 12px;border-radius:12px;background:rgba(24,20,17,.72);border:1px solid var(--gl-b);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:.76rem;line-height:1.35;max-width:170px;pointer-events:none}
+.hs-tip b{display:block;font-weight:600}
+@media (max-width:1060px){.bento{grid-template-columns:1fr 1fr}.t-feat{grid-column:1/-1}}
+@media (max-width:640px){.bento{grid-template-columns:1fr}.t-feat{grid-template-columns:1fr;min-height:0}.t-feat .vimg,.t-feat video{aspect-ratio:16/10;height:auto}.t-feat .tx{margin-left:0;padding:20px 22px 24px;background:var(--night);gap:18px}.t-close{min-height:340px}}
+
+/* ---------- sections ---------- */
+.sec{padding-block:clamp(72px,10vw,140px)}
+.sh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:clamp(30px,4vw,52px)}
+.h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.5rem,5vw,4.6rem);line-height:.98;letter-spacing:-.02em}
+.h2 i{font-weight:300}
+.eye{color:var(--amber)}
+
+/* intro statement */
+.state{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,90px);align-items:center}
+.state figure{margin:0;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;max-width:100%}
+.state figure img{width:100%;height:100%;object-fit:cover}
+.state .tx{display:grid;gap:28px;align-content:center}
+.state .tx > p{color:var(--mute);max-width:46ch;font-size:1rem}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);margin-top:8px}
+.stats div{padding:22px 16px 0 0}
+.stats div + div{padding-left:18px;border-left:1px solid var(--line)}
+.stats strong{display:block;white-space:nowrap;font-family:var(--serif);font-weight:300;font-size:clamp(1.7rem,2.7vw,2.6rem);line-height:1;font-variant-numeric:lining-nums}
+.stats span{display:block;font-size:.8rem;color:var(--mute);margin-top:8px}
+@media (max-width:860px){.state{grid-template-columns:1fr}.state figure{aspect-ratio:4/4.4}}
+@media (max-width:480px){.stats{grid-template-columns:1fr}.stats div,.stats div + div{padding:16px 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+/* collections */
+.coll{display:grid;grid-template-columns:minmax(0,250px) minmax(0,1fr);gap:clamp(20px,3vw,48px);align-items:start}
+.coll-side{display:grid;gap:14px;padding-top:6px}
+.coll-side p{color:var(--mute);font-size:.92rem}
+.arrows{display:flex;gap:8px;margin-top:10px}
+.arrows button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:background .3s,color .3s,border-color .3s}
+.arrows button:last-child{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+.arrows button:hover{border-color:var(--ink)}
+.arrows svg{width:13px;height:13px}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,calc((100% - 36px)/4));gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth;min-width:0}
+.rail::-webkit-scrollbar{display:none}
+.card{position:relative;aspect-ratio:3/4;border-radius:22px;overflow:hidden;background:var(--night);color:var(--bone);scroll-snap-align:start}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.card:hover img{transform:scale(1.05)}
+.card .gl{position:absolute;left:10px;right:10px;bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 10px 12px 16px;border-radius:16px;background:rgba(24,20,17,.38);border:1px solid var(--gl-b);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.card .gl strong{display:block;font-weight:500;font-size:.95rem}
+.card .gl span{display:block;font-size:.72rem;color:rgba(243,236,226,.68)}
+.card .gl .circ{width:34px;height:34px;background:var(--bone);color:var(--ink)}
+.card:hover .gl .circ{transform:rotate(45deg)}
+@media (max-width:860px){.coll{grid-template-columns:minmax(0,1fr)}.rail{grid-auto-columns:minmax(220px,62%)}.coll-side{grid-template-columns:1fr auto;align-items:end}.coll-side .arrows{grid-row:1/3;grid-column:2}}
+
+/* marquee */
+.marq{background:var(--night);color:var(--bone);border-radius:var(--r);overflow:hidden;padding-block:clamp(18px,2.6vw,30px)}
+.marq .tr{display:flex;width:max-content;animation:mq 60s linear infinite}
+.marq span{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,6vw,5.6rem);line-height:1;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;padding-right:.5em}
+.marq span i{font-style:normal;color:var(--amber);padding:0 .35em;font-size:.6em;vertical-align:.25em}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* spaces (find the right light) */
+.spaces{background:var(--cream);border-radius:var(--r)}
+.spaces .hd{text-align:center;display:grid;gap:14px;justify-items:center;margin-bottom:clamp(36px,5vw,70px)}
+.spaces .hd p{color:var(--mute);max-width:52ch}
+.rows{display:grid;gap:clamp(18px,2.4vw,28px);max-width:1180px;margin-inline:auto}
+.row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(20px,4vw,64px);align-items:center}
+.row:nth-child(even){grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+.row:nth-child(even) figure{order:2}
+.row figure{margin:0;border-radius:22px;overflow:hidden;aspect-ratio:16/10;max-width:100%}
+.row figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.row:hover figure img{transform:scale(1.04)}
+.row .tx{display:grid;gap:12px;align-content:center;padding-inline:clamp(0px,1vw,16px)}
+.row h3{font-family:var(--serif);font-size:clamp(1.8rem,2.6vw,2.4rem);line-height:1.02}
+.row .tx p{color:var(--mute);font-size:.92rem;max-width:40ch}
+.row .tlink{color:var(--ink);margin-top:6px}
+@media (max-width:760px){.row,.row:nth-child(even){grid-template-columns:1fr}.row:nth-child(even) figure{order:0}}
+
+/* experience */
+.xp{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(0,1fr);gap:12px}
+.xp-main{position:relative;border-radius:var(--r);overflow:hidden;background:var(--night);color:var(--bone);min-height:560px}
+.xp-main video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.xp-main::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,8,7,.1),rgba(10,8,7,.55));pointer-events:none}
+.xp-panel{position:absolute;z-index:2;right:16px;top:16px;bottom:16px;width:min(360px,calc(100% - 32px));border-radius:20px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;background:rgba(24,20,17,.4);border:1px solid var(--gl-b);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.xp-panel h3{font-family:var(--serif);font-size:clamp(1.8rem,2.4vw,2.3rem);line-height:1.02}
+.xp-panel p{font-size:.85rem;color:rgba(243,236,226,.75)}
+.clips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.clips button{display:grid;gap:6px;text-align:left;font-size:.68rem;color:rgba(243,236,226,.65)}
+.clips img{aspect-ratio:1/1;width:100%;object-fit:cover;border-radius:10px;border:1px solid transparent;opacity:.6;transition:opacity .3s,border-color .3s}
+.clips button[aria-pressed="true"]{color:var(--bone)}
+.clips button[aria-pressed="true"] img{opacity:1;border-color:var(--bone)}
+.xp-side{display:grid;grid-template-rows:1fr auto;gap:12px}
+.reel{position:relative;border-radius:var(--r);overflow:hidden;background:var(--night);color:var(--bone);min-height:320px}
+.reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reel .cap{position:absolute;left:12px;right:12px;bottom:12px;padding:12px 14px;border-radius:14px;background:rgba(24,20,17,.4);border:1px solid var(--gl-b);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:.8rem}
+.reel .cap b{display:block;font-weight:500}
+.next{border-radius:var(--r);background:var(--cream);padding:20px 22px;display:grid;gap:6px}
+.next strong{font-family:var(--serif);font-weight:400;font-size:1.6rem;line-height:1.05}
+.next span{color:var(--mute);font-size:.82rem}
+.next .label{color:var(--amber)}
+.events{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.ev{border-radius:20px;border:1px solid var(--line);padding:18px 20px;display:grid;gap:6px}
+.ev .label{color:var(--mute)}
+.ev strong{font-weight:500}
+.ev span{font-size:.82rem;color:var(--mute)}
+.ev.past{opacity:.5}
+@media (max-width:1060px){.xp{grid-template-columns:1fr}.xp-side{grid-template-columns:1fr 1fr;grid-template-rows:none}.reel{aspect-ratio:9/12}}
+@media (max-width:640px){.xp-main{min-height:0;display:flex;flex-direction:column}.xp-main video{position:relative;aspect-ratio:4/3;height:auto}.xp-main::after{display:none}.xp-panel{position:relative;inset:auto;width:auto;margin:-28px 10px 10px;background:rgba(36,29,24,.92)}.xp-side{grid-template-columns:1fr}.reel{aspect-ratio:4/5}.events{grid-template-columns:1fr}}
+
+/* faq */
+.faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,5vw,80px);align-items:start}
+.faq figure{margin:0;border-radius:var(--r);overflow:hidden;aspect-ratio:4/4.6;max-width:100%;position:sticky;top:24px}
+.faq figure img{width:100%;height:100%;object-fit:cover}
+.faq .tx{display:grid;gap:30px}
+.qa{display:grid;gap:8px}
+details{border:1px solid var(--line);border-radius:22px;transition:background .3s,border-color .3s}
+details[open]{background:var(--night);color:var(--bone);border-color:var(--night)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 12px 14px 22px;font-weight:500;font-size:.95rem}
+summary::-webkit-details-marker{display:none}
+summary .n{font-family:var(--wide);font-size:.56rem;color:var(--mute);margin-right:14px}
+details[open] summary .n{color:rgba(243,236,226,.5)}
+summary .circ{width:32px;height:32px;border:1px solid var(--line)}
+summary .circ svg{transition:transform .4s var(--ease)}
+details[open] summary .circ{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+details[open] summary .circ svg{transform:rotate(180deg)}
+details p{padding:0 22px 20px 60px;color:rgba(243,236,226,.72);font-size:.9rem;max-width:62ch}
+@media (max-width:860px){.faq{grid-template-columns:1fr}.faq figure{position:relative;top:0;aspect-ratio:16/10}details p{padding-left:22px}}
+
+/* footer */
+footer{background:var(--night);color:var(--bone);border-radius:var(--r);overflow:hidden;margin-bottom:max(12px,env(safe-area-inset-bottom,0px));padding-top:clamp(48px,7vw,96px)}
+.f-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:clamp(36px,5vw,64px);border-bottom:1px solid rgba(243,236,226,.12)}
+.f-top h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,5.4vw,5rem);line-height:.98}
+.f-cols{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:28px;padding-block:36px}
+.f-cols h5{margin:0 0 12px;font-family:var(--wide);font-weight:400;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,236,226,.5)}
+.f-cols ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:.88rem}
+.f-cols a{color:rgba(243,236,226,.82)}.f-cols a:hover{color:var(--bone)}
+.f-cols p{color:rgba(243,236,226,.6);font-size:.88rem;max-width:34ch}
+.f-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:.72rem;color:rgba(243,236,226,.5)}
+.giant{margin-top:clamp(28px,4vw,48px);height:clamp(70px,12.4vw,190px);overflow:hidden}
+.giant svg{width:100%;height:auto;display:block;color:#2a231d}
+@media (max-width:760px){.f-cols{grid-template-columns:1fr 1fr}.f-cols > div:first-child{grid-column:1/-1}}
+
+/* reveal: visible at rest, a small lift once in view */
+.rv{transition:transform 1.1s var(--ease),opacity 1.1s var(--ease)}
+.js .rv:not(.seen){transform:translateY(22px)}
+.no-io .rv{transform:none!important;opacity:1!important}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .intro{display:none}.js .rv:not(.seen){transform:none;opacity:1}
+  .hero h1 span b{transform:none}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="s-wings"><path d="M840.5 1015.5C860.8 984.7 882.4 951.9 888.5 942.5C894.6 933.1 905.0 917.4 911.5 907.5C918.0 897.6 926.0 885.5 929.2 880.6L935.0 871.8L935.0 765.6L935.0 659.5L912.1 624.0C899.5 604.5 884.8 581.6 879.3 573.2C873.9 564.8 867.2 554.4 864.5 550.2C861.7 546.0 850.1 527.9 838.6 510.0C827.1 492.1 816.4 475.5 814.7 473.0C813.0 470.5 804.6 457.5 796.0 444.0C787.4 430.5 778.5 416.8 776.3 413.5C774.2 410.2 771.4 405.9 770.2 404.0L768.0 400.5L768.0 763.0L768.0 1125.5L785.9 1098.5C795.7 1083.7 820.3 1046.3 840.5 1015.5Z"/><path d="M1277.0 762.8L1277.0 400.5L1266.1 417.0C1260.2 426.1 1247.5 445.4 1237.9 460.0C1228.3 474.6 1214.8 495.0 1208.0 505.5C1201.1 515.9 1188.7 534.8 1180.3 547.5C1152.3 590.1 1138.2 611.4 1124.1 633.0L1110.0 654.5L1110.0 760.6L1110.0 866.8L1123.1 887.2C1130.4 898.3 1155.8 937.9 1179.8 975.0C1203.7 1012.1 1228.1 1049.9 1233.9 1059.0C1239.8 1068.1 1251.8 1086.6 1260.5 1100.2C1269.3 1113.8 1276.6 1125.0 1276.8 1125.0C1276.9 1125.0 1277.0 962.0 1277.0 762.8Z"/></g>
+  <g id="s-sq"><path d="M1068.0 702.5L1068.0 660.0L1022.5 660.0L977.0 660.0L977.0 702.5L977.0 745.0L1022.5 745.0L1068.0 745.0L1068.0 702.5Z"/><path d="M1068.0 829.5L1068.0 787.0L1022.5 787.0L977.0 787.0L977.0 829.5L977.0 872.0L1022.5 872.0L1068.0 872.0L1068.0 829.5Z"/></g>
+  <g id="s-word"><path fill-rule="evenodd" d="M389.5 1498.6C394.3 1494.9 395.0 1491.3 395.0 1470.8L395.0 1453.0L480.5 1453.0L566.0 1453.0L566.0 1472.5C566.0 1495.0 566.4 1496.6 573.3 1499.9C578.7 1502.5 580.3 1502.5 585.5 1500.0C593.3 1496.2 593.0 1499.0 593.0 1438.0L593.0 1383.8L589.1 1379.9C585.5 1376.3 584.8 1376.0 579.6 1376.0C574.6 1376.0 573.6 1376.4 570.2 1379.4L566.5 1382.8L566.0 1403.7L565.5 1424.5L480.2 1424.8L395.0 1425.0L395.0 1406.3C395.0 1390.0 394.7 1386.9 393.1 1383.3C390.8 1378.3 386.8 1376.0 380.8 1376.0C375.3 1376.0 372.1 1377.7 369.3 1381.9L367.0 1385.3L367.0 1438.5L367.0 1491.7L369.3 1495.1C374.1 1502.3 382.7 1503.7 389.5 1498.6ZM746.5 1499.2C751.6 1495.4 752.0 1493.6 752.0 1472.7L752.0 1453.2L754.8 1452.6C756.3 1452.4 760.2 1451.8 763.5 1451.5C780.4 1449.7 804.5 1437.2 829.0 1417.5C850.0 1400.7 855.0 1395.4 855.0 1389.7C855.0 1385.4 852.1 1380.0 848.6 1377.9C845.1 1375.8 838.0 1375.4 834.7 1377.1C833.5 1377.8 826.5 1383.4 819.0 1389.7C795.8 1409.4 778.3 1419.9 763.3 1423.1C754.6 1425.0 722.4 1424.7 713.0 1422.6C698.0 1419.4 681.1 1409.1 656.0 1388.0C642.4 1376.6 641.4 1376.0 636.0 1376.0C628.8 1376.0 624.1 1379.7 622.6 1386.8C620.9 1394.1 624.8 1398.8 646.7 1416.5C673.5 1438.0 695.3 1449.5 713.0 1451.5C716.0 1451.8 720.0 1452.3 721.8 1452.6L725.0 1453.1L725.0 1472.6C725.0 1494.9 725.4 1496.5 732.5 1500.1C737.1 1502.4 742.7 1502.1 746.5 1499.2ZM1086.7 1498.1C1095.4 1494.0 1102.9 1486.7 1106.8 1478.3C1109.1 1473.4 1109.5 1471.2 1109.5 1463.5C1109.5 1455.8 1109.1 1453.7 1106.7 1448.5C1105.2 1445.2 1103.2 1441.8 1102.3 1440.8C1100.9 1439.2 1100.8 1438.8 1102.2 1437.2C1104.6 1434.6 1107.2 1429.0 1108.6 1423.5C1113.4 1405.8 1104.4 1387.2 1087.2 1379.2L1081.5 1376.5L986.6 1376.2L891.8 1376.0L887.9 1379.9C884.4 1383.3 884.0 1384.3 884.0 1388.6C884.0 1394.7 885.6 1397.8 889.9 1400.7L893.3 1403.0L982.6 1403.0C1082.0 1403.0 1078.2 1402.8 1081.4 1409.5C1083.4 1413.6 1083.4 1415.3 1081.4 1419.1C1078.3 1425.2 1081.6 1425.0 983.5 1425.0C887.1 1425.0 889.3 1424.9 885.6 1430.1C884.3 1432.1 884.0 1435.6 884.0 1452.2C884.0 1469.6 884.2 1472.6 886.0 1477.2C888.8 1484.6 894.1 1491.4 900.3 1495.5C910.3 1502.1 907.7 1501.9 998.0 1501.7L1079.5 1501.5L1086.7 1498.1ZM917.0 1473.3C912.8 1471.7 912.0 1469.9 912.0 1461.3L912.0 1453.0L993.5 1453.0C1054.5 1453.0 1075.6 1453.3 1077.5 1454.2C1080.4 1455.5 1083.0 1459.7 1083.0 1463.0C1083.0 1466.7 1080.0 1471.1 1076.5 1472.6C1073.6 1473.8 1060.4 1474.0 995.8 1473.9C953.3 1473.9 917.8 1473.6 917.0 1473.3ZM1363.6 1500.1C1366.7 1498.7 1368.3 1497.1 1369.9 1493.6C1373.2 1486.9 1371.4 1480.3 1365.3 1476.3C1362.8 1474.6 1356.1 1474.5 1266.8 1474.0L1171.1 1473.5L1168.9 1471.4C1167.1 1469.5 1166.7 1468.0 1166.6 1461.1L1166.5 1453.0L1261.0 1452.8C1350.2 1452.5 1355.7 1452.4 1358.3 1450.7C1364.7 1446.5 1366.9 1437.6 1363.0 1431.3C1359.0 1424.6 1365.8 1425.0 1252.0 1425.0C1141.0 1425.0 1144.3 1424.8 1140.6 1430.1C1139.3 1432.1 1139.0 1435.5 1139.0 1451.7C1139.0 1468.3 1139.3 1471.8 1140.9 1476.6C1143.6 1484.2 1148.6 1490.8 1155.1 1495.2C1165.1 1502.1 1161.2 1501.9 1265.5 1501.9C1355.1 1502.0 1359.7 1501.9 1363.6 1500.1ZM1367.0 1399.2C1372.0 1394.2 1373.0 1389.6 1370.1 1383.8C1366.1 1375.3 1375.8 1376.0 1254.5 1376.0L1146.8 1376.0L1142.9 1379.9C1139.5 1383.3 1139.0 1384.3 1139.0 1388.4C1139.0 1394.2 1141.1 1398.5 1145.3 1401.0C1148.4 1402.9 1151.1 1403.0 1255.9 1403.0L1363.2 1403.0L1367.0 1399.2ZM1627.8 1500.6C1635.5 1496.6 1638.3 1487.5 1634.0 1480.6C1632.8 1478.6 1630.8 1476.4 1629.7 1475.7C1628.0 1474.8 1606.7 1474.4 1539.0 1474.0C1451.7 1473.5 1450.4 1473.5 1445.9 1471.4C1432.2 1465.0 1425.6 1450.4 1428.2 1431.6C1429.9 1418.9 1435.4 1411.0 1445.9 1406.1L1451.5 1403.5L1539.5 1403.0C1609.6 1402.6 1628.0 1402.2 1629.8 1401.2C1637.7 1396.7 1638.0 1384.1 1630.4 1378.1C1627.7 1376.0 1627.5 1376.0 1536.3 1376.0C1446.4 1376.0 1444.8 1376.0 1438.8 1378.1C1422.3 1383.6 1408.6 1399.8 1402.9 1420.7C1400.1 1430.6 1400.0 1445.4 1402.5 1455.5C1404.6 1464.1 1410.6 1476.8 1415.7 1483.5C1422.2 1491.9 1433.3 1499.2 1442.4 1501.0C1444.7 1501.4 1486.7 1501.8 1535.8 1501.9C1610.7 1502.0 1625.5 1501.8 1627.8 1500.6Z"/><path fill-rule="evenodd" d="M1669.9 1381.5C1687.1 1372.7 1682.9 1347.5 1663.8 1344.4C1656.2 1343.1 1646.3 1348.6 1643.4 1355.7C1641.4 1360.4 1641.6 1368.9 1643.9 1373.0C1646.2 1377.4 1651.8 1382.0 1656.2 1383.1C1660.3 1384.1 1666.3 1383.4 1669.9 1381.5ZM1653.0 1376.8C1640.5 1368.4 1646.0 1348.9 1660.8 1348.7C1669.9 1348.6 1676.3 1354.9 1676.4 1364.0C1676.4 1372.6 1671.0 1378.2 1662.0 1378.8C1657.5 1379.1 1655.9 1378.8 1653.0 1376.8ZM1656.0 1369.0C1656.0 1365.4 1656.3 1365.0 1658.5 1365.0C1660.3 1365.0 1661.7 1366.1 1663.6 1369.0C1665.1 1371.2 1666.9 1373.0 1667.7 1373.0C1669.2 1373.0 1669.0 1372.4 1665.8 1367.8C1664.0 1365.1 1664.0 1365.0 1666.0 1363.0C1670.5 1358.5 1667.4 1355.0 1658.9 1355.0L1653.0 1355.0L1653.0 1364.0C1653.0 1371.3 1653.3 1373.0 1654.5 1373.0C1655.6 1373.0 1656.0 1371.9 1656.0 1369.0ZM1656.0 1359.9C1656.0 1357.0 1656.1 1356.9 1660.2 1357.2C1663.5 1357.4 1664.6 1358.0 1664.8 1359.4C1665.3 1361.8 1663.4 1363.0 1659.2 1363.0C1656.3 1363.0 1656.0 1362.7 1656.0 1359.9Z"/></g>
+  <g id="s-tag"><path fill-rule="evenodd" d="M729.0 1645.1C731.1 1644.1 733.5 1641.5 735.0 1638.9C737.4 1634.7 737.5 1633.7 737.8 1613.6C738.0 1602.1 737.8 1592.4 737.3 1592.0C736.9 1591.5 734.4 1590.9 731.8 1590.5L727.0 1589.8L727.0 1593.6L727.0 1597.4L724.1 1594.6C717.8 1588.6 706.7 1589.3 700.3 1596.2C692.8 1604.2 693.2 1620.3 701.2 1627.7C706.6 1632.8 717.1 1633.6 723.3 1629.5L727.0 1626.9L727.0 1629.9C727.0 1631.6 726.0 1634.1 724.6 1635.7C722.4 1638.3 721.6 1638.5 715.3 1638.5C710.7 1638.4 707.4 1637.8 705.1 1636.6C701.2 1634.5 700.0 1635.4 700.0 1640.7C700.0 1643.5 700.5 1644.0 704.2 1645.4C712.5 1648.4 722.9 1648.3 729.0 1645.1ZM928.1 1645.5C932.4 1643.2 935.8 1638.4 936.4 1633.7C936.7 1631.4 937.1 1621.1 937.3 1610.8C937.6 1596.6 937.4 1592.0 936.5 1591.6C935.8 1591.4 933.2 1590.9 930.7 1590.5L926.1 1589.8L926.5 1593.4C926.7 1595.4 926.6 1597.0 926.4 1597.0C926.3 1597.0 925.0 1595.9 923.7 1594.6C917.8 1588.7 907.5 1589.3 900.7 1595.8C896.9 1599.5 894.0 1606.5 894.0 1611.9C894.0 1619.1 898.9 1627.3 905.1 1630.6C909.7 1632.9 918.1 1632.4 922.4 1629.5L926.0 1627.1L926.0 1629.9C926.0 1634.2 925.1 1635.9 921.9 1637.5C918.0 1639.6 912.0 1639.4 905.8 1637.0C903.0 1635.9 900.5 1635.1 900.4 1635.3C900.3 1635.4 900.0 1637.1 899.6 1639.1C899.0 1642.2 899.3 1643.0 901.4 1644.3C906.9 1647.9 922.0 1648.6 928.1 1645.5ZM1078.2 1635.8C1080.3 1635.2 1083.7 1633.3 1085.7 1631.5L1089.3 1628.4L1087.5 1625.4C1086.4 1623.8 1085.5 1622.4 1085.4 1622.2C1085.3 1622.0 1083.5 1623.0 1081.3 1624.4C1073.8 1629.3 1065.4 1628.7 1060.5 1622.9C1059.1 1621.2 1058.0 1619.5 1058.0 1619.1C1058.0 1618.7 1064.1 1617.9 1071.5 1617.2C1078.9 1616.6 1085.9 1615.6 1087.0 1615.0C1091.3 1612.7 1088.5 1600.5 1082.4 1594.8C1072.3 1585.4 1055.1 1589.9 1049.4 1603.5C1047.0 1609.3 1047.2 1619.4 1049.9 1624.7C1054.8 1634.5 1066.9 1639.2 1078.2 1635.8ZM1346.6 1633.5C1352.1 1630.3 1352.6 1629.1 1350.5 1625.1L1348.9 1622.0L1344.7 1624.4C1336.5 1629.2 1327.5 1628.5 1323.5 1622.6C1320.7 1618.7 1321.5 1618.4 1335.3 1617.2C1342.6 1616.6 1349.4 1615.8 1350.3 1615.4C1354.2 1613.9 1353.2 1604.7 1348.3 1597.8C1341.0 1587.2 1324.0 1587.5 1316.0 1598.3C1314.3 1600.6 1312.5 1604.3 1311.9 1606.5C1310.4 1612.0 1311.2 1620.8 1313.6 1625.6C1315.9 1630.0 1322.1 1634.8 1327.1 1636.1C1333.0 1637.6 1341.6 1636.4 1346.6 1633.5ZM667.0 1608.1C667.0 1592.8 667.3 1578.2 667.6 1575.6L668.3 1571.0L662.0 1571.0L655.7 1571.0L656.3 1584.7C656.7 1592.2 657.0 1606.8 657.0 1617.2L657.0 1636.0L662.0 1636.0L667.0 1636.0L667.0 1608.1ZM688.0 1614.2L688.0 1592.4L682.2 1592.5L676.5 1592.6L676.9 1613.5C677.0 1625.1 677.4 1634.8 677.7 1635.2C677.9 1635.7 680.3 1636.0 683.1 1636.0L688.0 1636.0L688.0 1614.2ZM757.0 1621.2C757.0 1613.1 757.4 1606.0 757.8 1605.4C759.2 1603.2 765.6 1600.0 768.6 1600.0C770.5 1600.0 772.4 1600.8 773.6 1602.1C775.3 1603.9 775.5 1606.1 775.8 1620.1L776.1 1636.0L781.1 1636.0C785.5 1636.0 786.0 1635.8 786.1 1633.8C786.1 1632.5 786.1 1624.3 786.0 1615.5C785.9 1598.1 785.0 1594.9 779.9 1592.2C775.9 1590.1 765.9 1591.1 761.9 1594.1C755.6 1598.8 755.9 1599.4 756.6 1583.9C757.3 1570.6 757.2 1569.7 755.6 1570.3C754.6 1570.7 751.9 1571.0 749.6 1571.0L745.3 1571.0L745.7 1602.2C746.0 1619.4 746.3 1634.1 746.5 1634.8C746.8 1635.5 748.8 1636.0 752.0 1636.0L757.0 1636.0L757.0 1621.2ZM819.0 1634.4C819.6 1633.8 820.3 1631.6 820.7 1629.6L821.3 1625.9L817.4 1626.6C812.0 1627.7 808.9 1627.4 807.9 1625.8C807.4 1625.1 807.1 1619.3 807.2 1613.0L807.5 1601.5L813.8 1601.8L820.0 1602.1L820.0 1597.0L820.0 1592.0L813.4 1592.0L806.7 1592.0L807.4 1585.1L808.0 1578.2L804.9 1577.6C797.2 1576.1 797.1 1576.2 796.8 1584.7C796.5 1592.0 796.4 1592.4 794.0 1593.0C792.0 1593.5 791.4 1594.3 791.2 1597.2C790.9 1600.5 791.1 1600.9 793.7 1601.2L796.5 1601.5L797.0 1616.8C797.5 1631.7 797.6 1632.2 800.0 1634.2C802.1 1635.9 803.6 1636.1 810.2 1635.8C814.4 1635.6 818.4 1635.0 819.0 1634.4ZM838.0 1623.2C838.0 1616.1 838.3 1606.3 838.6 1601.4L839.3 1592.5L833.2 1592.5L827.1 1592.5L827.6 1612.0C827.8 1622.7 828.0 1632.5 828.0 1633.8C828.0 1635.8 828.5 1636.0 833.0 1636.0L838.0 1636.0L838.0 1623.2ZM859.0 1620.7L859.0 1605.4L862.0 1603.2C865.5 1600.6 869.9 1599.5 873.4 1600.4C877.0 1601.3 878.0 1605.7 878.0 1621.6L878.0 1636.0L883.1 1636.0L888.1 1636.0L887.8 1616.5L887.5 1597.0L884.8 1594.3C882.5 1592.1 881.0 1591.5 875.8 1591.2C869.9 1590.8 869.1 1591.0 864.3 1594.3C861.5 1596.2 858.9 1597.5 858.6 1597.2C858.3 1596.9 858.0 1595.6 858.0 1594.2C858.0 1591.9 857.8 1591.8 852.8 1592.5C849.9 1592.9 847.2 1593.5 846.8 1593.9C846.4 1594.2 846.5 1596.3 847.0 1598.5C847.5 1600.7 848.0 1610.0 848.0 1619.2L848.0 1636.0L853.5 1636.0L859.0 1636.0L859.0 1620.7ZM992.0 1634.7C993.9 1633.8 994.6 1632.5 994.8 1629.7L995.1 1625.9L991.3 1626.6C981.6 1628.5 980.9 1627.5 981.2 1613.1L981.5 1601.5L987.8 1601.8L994.0 1602.1L994.0 1597.0L994.0 1592.0L987.6 1592.0L981.1 1592.0L981.7 1585.2C982.2 1578.6 982.2 1578.3 979.9 1577.7C978.6 1577.3 976.1 1577.0 974.3 1577.0L971.1 1577.0L970.8 1584.7C970.5 1592.0 970.4 1592.4 968.0 1593.0C965.9 1593.5 965.5 1594.2 965.5 1597.0C965.5 1600.0 965.9 1600.5 968.2 1600.8L970.9 1601.1L971.2 1616.6C971.5 1631.8 971.6 1632.2 974.0 1634.0C977.0 1636.3 988.0 1636.7 992.0 1634.7ZM1012.0 1621.2C1012.0 1607.1 1012.1 1606.2 1014.2 1604.3C1017.5 1601.3 1020.5 1600.0 1023.7 1600.0C1030.1 1600.0 1031.0 1602.7 1031.0 1621.0L1031.0 1636.1L1036.2 1635.8L1041.5 1635.5L1041.7 1623.0C1042.1 1604.0 1041.4 1598.4 1038.1 1594.7C1035.7 1592.1 1034.5 1591.6 1029.3 1591.2C1023.1 1590.8 1017.0 1592.8 1014.1 1596.4C1013.3 1597.3 1012.5 1598.0 1012.1 1598.0C1011.8 1598.0 1011.7 1591.8 1011.8 1584.2L1012.2 1570.3L1006.3 1570.8C1003.1 1571.0 1000.4 1571.3 1000.4 1571.4C1000.3 1571.4 1000.7 1586.0 1001.3 1603.8L1002.4 1636.0L1007.2 1636.0L1012.0 1636.0L1012.0 1621.2ZM1132.0 1618.4L1132.0 1600.9L1137.0 1601.5L1142.0 1602.1L1142.0 1597.1L1142.0 1592.0L1136.4 1592.0L1130.8 1592.0L1131.4 1588.9C1131.7 1587.2 1132.0 1584.9 1132.0 1583.9C1132.0 1581.1 1135.6 1578.0 1138.9 1578.0C1142.6 1578.0 1143.0 1577.3 1142.1 1573.0C1141.3 1568.9 1139.0 1568.2 1132.4 1570.0C1125.0 1572.1 1121.0 1578.0 1121.0 1587.0C1121.0 1591.6 1120.8 1591.9 1118.0 1592.5C1115.3 1593.1 1115.0 1593.5 1115.0 1597.1C1115.0 1600.5 1115.3 1601.0 1117.3 1601.0C1121.6 1601.0 1122.0 1602.4 1122.0 1619.7L1122.0 1636.0L1127.0 1636.0L1132.0 1636.0L1132.0 1618.4ZM1172.9 1632.2L1177.9 1629.2L1178.2 1632.3C1178.5 1635.4 1178.7 1635.5 1183.8 1635.8L1189.0 1636.1L1189.0 1614.1L1189.0 1592.0L1184.1 1592.0C1178.1 1592.0 1178.0 1592.1 1178.0 1608.7L1178.0 1620.9L1174.3 1623.9C1171.4 1626.3 1169.6 1627.0 1166.3 1627.0C1158.2 1627.0 1155.9 1620.9 1157.7 1603.5C1158.3 1598.0 1158.6 1593.2 1158.3 1592.8C1157.7 1591.6 1149.2 1591.8 1148.5 1593.0C1148.2 1593.6 1147.4 1598.3 1146.9 1603.5C1145.7 1615.1 1147.0 1627.1 1149.8 1630.9C1154.1 1636.8 1164.7 1637.4 1172.9 1632.2ZM1221.4 1635.0C1223.6 1634.2 1224.0 1633.4 1224.0 1630.0C1224.0 1626.1 1223.9 1626.0 1221.3 1626.6C1216.5 1627.9 1212.8 1627.4 1211.4 1625.5C1209.8 1623.4 1209.4 1604.4 1210.9 1602.2C1211.5 1601.2 1213.1 1601.0 1217.3 1601.5L1222.8 1602.2L1223.2 1597.5C1223.4 1595.0 1223.3 1592.7 1223.1 1592.4C1222.9 1592.2 1219.9 1592.0 1216.6 1592.0L1210.5 1592.0L1210.8 1585.1C1211.2 1577.5 1210.7 1577.0 1203.2 1577.0L1200.0 1577.0L1200.0 1584.9C1200.0 1592.8 1200.0 1592.9 1197.2 1593.2C1194.8 1593.5 1194.5 1593.9 1194.5 1597.0C1194.5 1600.1 1194.8 1600.5 1197.2 1600.8C1199.0 1601.0 1200.0 1601.7 1200.1 1602.8C1200.1 1603.7 1200.1 1610.2 1200.0 1617.3L1199.9 1630.0L1202.9 1633.0C1205.6 1635.7 1206.5 1636.0 1212.4 1636.0C1215.9 1636.0 1220.0 1635.6 1221.4 1635.0ZM1256.9 1632.2L1261.9 1629.2L1262.2 1632.3C1262.5 1635.4 1262.6 1635.5 1267.5 1635.5L1272.5 1635.5L1272.8 1613.8L1273.0 1592.0L1268.1 1592.0C1264.6 1592.0 1263.0 1592.4 1262.6 1593.6C1262.3 1594.5 1262.0 1600.9 1262.0 1607.9C1262.0 1619.8 1261.9 1620.8 1259.8 1622.7C1254.1 1627.8 1247.8 1628.5 1243.9 1624.4C1241.7 1622.1 1241.5 1621.0 1241.5 1612.7C1241.5 1607.6 1241.7 1601.0 1242.0 1598.0L1242.5 1592.5L1237.6 1592.5C1233.0 1592.5 1232.6 1592.7 1231.7 1595.5C1231.3 1597.2 1230.8 1604.3 1230.7 1611.5C1230.6 1625.6 1231.8 1630.3 1236.4 1633.3C1241.9 1637.0 1250.0 1636.5 1256.9 1632.2ZM1293.0 1621.6C1293.0 1603.8 1293.6 1602.6 1302.2 1602.8C1307.7 1602.9 1307.8 1602.9 1308.4 1599.8C1309.8 1592.7 1309.5 1592.0 1304.2 1592.0C1301.2 1592.0 1298.4 1592.7 1296.5 1594.0C1292.7 1596.5 1292.3 1596.5 1291.6 1593.6C1291.1 1591.4 1290.6 1591.3 1286.3 1591.8C1283.6 1592.0 1281.3 1592.4 1281.2 1592.6C1281.0 1592.7 1281.3 1596.0 1281.9 1599.9C1282.5 1603.7 1283.0 1613.4 1283.0 1621.4L1283.0 1636.0L1288.0 1636.0L1293.0 1636.0L1293.0 1621.6ZM709.7 1621.9C704.3 1617.8 704.1 1607.0 709.2 1602.3C717.9 1594.2 729.7 1603.9 726.1 1616.0C723.9 1623.5 715.4 1626.5 709.7 1621.9ZM910.2 1622.4C902.8 1617.2 903.6 1603.7 911.6 1600.4C916.3 1598.4 920.3 1599.3 923.5 1603.2C927.9 1608.4 926.7 1618.3 921.2 1622.8C919.0 1624.5 912.9 1624.3 910.2 1622.4ZM1058.0 1608.0C1058.0 1607.0 1059.4 1604.5 1061.1 1602.5C1065.3 1597.8 1070.7 1597.6 1075.1 1601.9C1076.7 1603.5 1078.0 1605.7 1078.0 1606.8C1078.0 1609.1 1074.1 1610.0 1064.2 1610.0C1058.7 1610.0 1058.0 1609.8 1058.0 1608.0ZM1321.0 1609.6C1321.0 1607.5 1324.1 1602.0 1326.1 1600.6C1329.1 1598.6 1334.4 1598.5 1337.5 1600.6C1340.3 1602.4 1342.4 1607.6 1340.8 1608.6C1339.3 1609.5 1321.0 1610.4 1321.0 1609.6ZM688.1 1583.8C689.6 1581.0 688.4 1577.1 685.5 1575.8C680.0 1573.3 674.4 1578.2 676.8 1583.4C678.5 1587.3 686.1 1587.5 688.1 1583.8ZM837.8 1584.8C841.1 1581.5 837.8 1575.0 832.9 1575.0C829.4 1575.0 827.0 1577.4 827.0 1580.9C827.0 1584.6 828.7 1586.0 833.0 1586.0C835.0 1586.0 837.1 1585.5 837.8 1584.8Z"/></g>
+  <symbol id="i-ar" viewBox="0 0 12 12"><path d="M2 10L10 2M4 2h6v6" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+  <symbol id="i-l" viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+  <symbol id="i-r" viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="i-down" viewBox="0 0 14 14"><path d="M2 5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+  <symbol id="i-search" viewBox="0 0 14 14"><circle cx="6" cy="6" r="4.3" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9.2 9.2L13 13" stroke="currentColor" stroke-width="1.3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 14 14"><path d="M1 4.5h12M1 9.5h12" stroke="currentColor" stroke-width="1.3"/></symbol>
+  <symbol id="i-x" viewBox="0 0 14 14"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.3"/></symbol>
+</defs></svg>
+
+<div class="intro" id="intro" aria-hidden="true">
+  <svg class="lk" viewBox="740 380 565 760">
+    <path class="w l" d="M840.5 1015.5C860.8 984.7 882.4 951.9 888.5 942.5C894.6 933.1 905.0 917.4 911.5 907.5C918.0 897.6 926.0 885.5 929.2 880.6L935.0 871.8L935.0 765.6L935.0 659.5L912.1 624.0C899.5 604.5 884.8 581.6 879.3 573.2C873.9 564.8 867.2 554.4 864.5 550.2C861.7 546.0 850.1 527.9 838.6 510.0C827.1 492.1 816.4 475.5 814.7 473.0C813.0 470.5 804.6 457.5 796.0 444.0C787.4 430.5 778.5 416.8 776.3 413.5C774.2 410.2 771.4 405.9 770.2 404.0L768.0 400.5L768.0 763.0L768.0 1125.5L785.9 1098.5C795.7 1083.7 820.3 1046.3 840.5 1015.5Z"/><path class="w r" d="M1277.0 762.8L1277.0 400.5L1266.1 417.0C1260.2 426.1 1247.5 445.4 1237.9 460.0C1228.3 474.6 1214.8 495.0 1208.0 505.5C1201.1 515.9 1188.7 534.8 1180.3 547.5C1152.3 590.1 1138.2 611.4 1124.1 633.0L1110.0 654.5L1110.0 760.6L1110.0 866.8L1123.1 887.2C1130.4 898.3 1155.8 937.9 1179.8 975.0C1203.7 1012.1 1228.1 1049.9 1233.9 1059.0C1239.8 1068.1 1251.8 1086.6 1260.5 1100.2C1269.3 1113.8 1276.6 1125.0 1276.8 1125.0C1276.9 1125.0 1277.0 962.0 1277.0 762.8Z"/>
+    <path class="q a" d="M1068.0 702.5L1068.0 660.0L1022.5 660.0L977.0 660.0L977.0 702.5L977.0 745.0L1022.5 745.0L1068.0 745.0L1068.0 702.5Z"/><path class="q b" d="M1068.0 829.5L1068.0 787.0L1022.5 787.0L977.0 787.0L977.0 829.5L977.0 872.0L1022.5 872.0L1068.0 872.0L1068.0 829.5Z"/>
+  </svg>
+</div>
+
+<div class="drawer" id="drawer" hidden>
+  <div class="top">
+    <span class="label" style="color:rgba(243,236,226,.6)">Menu</span>
+    <button class="circ circ--glass" id="drawerClose" aria-label="Close menu"><svg><use href="#i-x"/></svg></button>
+  </div>
+  <nav aria-label="Mobile"><a href="#collections">Products</a><a href="#spaces">Applications</a><a href="#experience">Experience</a><a href="#about">About</a><a href="#faq">FAQ</a></nav>
+  <a class="pill pill--light" href="#contact" style="justify-self:start;align-self:flex-start">Enquire now <span class="ar"><svg><use href="#i-ar"/></svg></span></a>
+</div>
+
+<div class="page">
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-media"><img id="heroImg" src="img/hero.webp" width="2400" height="1351" alt="Contemporary residence at dusk, its stone walls, steps and planting lit with warm concealed and in-ground light" fetchpriority="high"></div>
+  <div class="bar">
+    <a class="logo" href="#top" aria-label="HYBEC home">
+      <svg class="mk" viewBox="760 392 525 742" aria-hidden="true"><use href="#s-wings" fill="currentColor"/><use href="#s-sq" class="sq"/></svg>
+      <span class="wm"><svg class="w" viewBox="360 1336 1324 172" fill="currentColor" aria-hidden="true"><use href="#s-word"/></svg><svg class="t" viewBox="650 1565 705 85" fill="currentColor" aria-hidden="true"><use href="#s-tag"/></svg></span>
+    </a>
+    <nav class="nav" aria-label="Primary"><a href="#collections">Products</a><a href="#spaces">Applications</a><a href="#experience">Experience</a><a href="#about">About</a><a href="#faq">FAQ</a></nav>
+    <div class="bar-r">
+      <a class="circ circ--glass" href="#collections" aria-label="Search products"><svg><use href="#i-search"/></svg></a>
+      <a class="pill pill--light" href="#contact">Enquire <span class="ar"><svg><use href="#i-ar"/></svg></span></a>
+      <button class="circ circ--glass menu" id="menuBtn" aria-label="Open menu" aria-controls="drawer" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+
+  <div class="call" id="call" aria-hidden="true">
+    <span class="ln"></span><span class="ln2"></span><span class="dot"></span>
+    <div class="cc"><strong>Step &amp; profile light</strong><span>Concealed linear, warm 2700K</span><em>Architectural series</em></div>
+  </div>
+
+  <div class="hero-body">
+    <div class="hb-main">
+      <span class="label"><i></i>Architectural lighting, redefined</span>
+      <h1><span><b>Light that</b></span><span><b>shapes spaces.</b></span></h1>
+      <div class="hb-sub">
+        <a class="pill pill--glass" href="#collections">Explore products <span class="ar"><svg><use href="#i-ar"/></svg></span></a>
+        <p>Indoor, outdoor and architectural lighting for extraordinary spaces.</p>
+      </div>
+    </div>
+    <p class="hb-note">Thoughtfully designed lighting. Spaces that leave a lasting impression.</p>
+    <div class="hb-foot">
+      <div class="chips"><a class="chip" href="#collections">Indoor</a><a class="chip" href="#collections">Outdoor</a><a class="chip" href="#collections">Architectural</a><a class="chip" href="#collections">Decorative</a><a class="chip" href="#collections">Fans</a></div>
+      <div class="hb-r"><span class="label">Scroll</span><a class="circ circ--glass" href="#bento" aria-label="Scroll to content"><svg><use href="#i-down"/></svg></a></div>
+    </div>
+  </div>
+</header>
+
+<!-- BENTO -->
+<section class="bento" id="bento" aria-label="Featured">
+  <article class="tile t-feat rv">
+    <video class="vimg" src="media/rings.mp4" poster="img/rings.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Ring pendants at the HYBEC pavilion"></video>
+    <div class="tx">
+      <span class="tag">Featured</span>
+      <div>
+        <h3>Ring &amp; ribbon pendants</h3>
+        <p>Decorative lighting with sculpted warm-white rings, from the HYBEC pavilion.</p>
+        <a class="tlink" href="#collections">Explore decorative <svg><use href="#i-ar"/></svg></a>
+      </div>
+    </div>
+  </article>
+  <article class="tile t-forms rv">
+    <div class="hd"><div><h3>Refined forms</h3><p>Magnetic track and linear systems for clean ceilings.</p></div><a class="circ circ--glass" href="#collections" aria-label="Explore track lighting"><svg><use href="#i-ar"/></svg></a></div>
+    <div class="inner"><video src="media/track.mp4" poster="img/track.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Magnetic track and linear lights on a ceiling"></video></div>
+  </article>
+  <article class="tile t-close rv" id="closer">
+    <img src="img/zenlux.webp" width="1400" height="1086" alt="Zenlux recessed downlights in black and white finishes" loading="lazy">
+    <h3>Closer look</h3>
+    <button class="hs" style="left:30%;top:48%" aria-expanded="false" data-t="Deep anti-glare|The light source sits deeper inside the fixture."><svg><use href="#i-plus"/></svg></button>
+    <button class="hs" style="left:72%;top:36%" aria-expanded="false" data-t="Reflector options|Black, white and textured finishes."><svg><use href="#i-plus"/></svg></button>
+    <button class="hs" style="left:58%;top:80%" aria-expanded="false" data-t="Push &amp; pull lock|Tool-free fixing into the ceiling."><svg><use href="#i-plus"/></svg></button>
+    <div class="hs-tip" id="tip" hidden></div>
+  </article>
+</section>
+
+<!-- STATEMENT -->
+<section class="sec in-pad" id="about">
+  <div class="state">
+    <figure class="rv"><img src="img/signage.webp" width="1122" height="1402" alt="HYBEC logo backlit on a stone wall at dusk" loading="lazy"></figure>
+    <div class="tx rv">
+      <span class="label eye">About HYBEC</span>
+      <h2 class="h2">Precision you can see. <i>Light you can feel.</i></h2>
+      <p>HYBEC brings precision, performance and thoughtful design together to make every space feel intentional. We consult, we create and we illuminate: from understanding your requirements to recommending the right fixture for every zone.</p>
+      <div class="stats">
+        <div><strong>95+</strong><span>CRI on Lumivex, for true colour</span></div>
+        <div><strong>2700–4000K</strong><span>Warm to neutral white</span></div>
+        <div><strong>IP54</strong><span>Zenlux, from lobbies to washrooms</span></div>
+      </div>
+      <a class="pill pill--ink" href="#faq" style="justify-self:start">Our approach <span class="ar"><svg><use href="#i-ar"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS -->
+<section class="in-pad" id="collections" style="padding-bottom:clamp(72px,10vw,140px)">
+  <div class="sh rv">
+    <h2 class="h2">Collections</h2>
+    <a class="pill pill--ink" href="#contact">Download catalogue <span class="ar"><svg><use href="#i-ar"/></svg></span></a>
+  </div>
+  <div class="coll">
+    <div class="coll-side rv">
+      <span class="label eye">Since 1998</span>
+      <p>A complete range of indoor, outdoor and architectural lighting, plus decorative pieces and fans, designed for modern spaces.</p>
+      <div class="arrows"><button id="prev" aria-label="Previous collections"><svg><use href="#i-l"/></svg></button><button id="next" aria-label="Next collections"><svg><use href="#i-r"/></svg></button></div>
+    </div>
+    <div class="rail" id="rail">
+      <a class="card" href="#contact"><img src="img/zenlux.webp" width="1400" height="1086" alt="Zenlux recessed downlights" loading="lazy"><div class="gl"><div><strong>Downlights</strong><span>Zenlux · Lumivex · PRO-165</span></div><span class="circ"><svg><use href="#i-ar"/></svg></span></div></a>
+      <a class="card" href="#contact"><img src="img/trackstill.webp" width="1276" height="720" alt="Magnetic track lights on a ceiling" loading="lazy" style="object-position:40% 50%"><div class="gl"><div><strong>Track &amp; magnetic</strong><span>Spots, linears, accents</span></div><span class="circ"><svg><use href="#i-ar"/></svg></span></div></a>
+      <a class="card" href="#contact"><img src="img/larger.webp" width="1400" height="1470" alt="Living room with a recessed cove of warm light" loading="lazy"><div class="gl"><div><strong>Linear &amp; profile</strong><span>Coves, joinery, stairs</span></div><span class="circ"><svg><use href="#i-ar"/></svg></span></div></a>
+      <a class="card" href="#contact"><img src="img/path-1.webp" width="1400" height="1226" alt="Garden path with bollard lights" loading="lazy"><div class="gl"><div><strong>Outdoor</strong><span>Bollards, in-ground, façade</span></div><span class="circ"><svg><use href="#i-ar"/></svg></span></div></a>
+      <a class="card" href="#contact"><img src="img/deco.webp" width="1276" height="720" alt="Ribbon pendant and chandeliers at the HYBEC pavilion" loading="lazy" style="object-position:35% 50%"><div class="gl"><div><strong>Decorative</strong><span>Pendants, chandeliers</span></div><span class="circ"><svg><use href="#i-ar"/></svg></span></div></a>
+      <a class="card" href="#contact"><img src="img/fan.webp" width="1276" height="720" alt="Five-blade ceiling fan with integrated light" loading="lazy"><div class="gl"><div><strong>Fans</strong><span>With integrated light</span></div><span class="circ"><svg><use href="#i-ar"/></svg></span></div></a>
+      <a class="card" href="#contact"><img src="img/tower.webp" width="1400" height="1540" alt="Tower façade lit with vertical grazing light" loading="lazy"><div class="gl"><div><strong>Façade</strong><span>Grazing, wall wash</span></div><span class="circ"><svg><use href="#i-ar"/></svg></span></div></a>
+    </div>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true"><div class="tr">
+  <span>Downlights<i>✱</i>Track<i>✱</i>Linear<i>✱</i>Outdoor<i>✱</i>Decorative<i>✱</i>Fans<i>✱</i></span>
+  <span>Downlights<i>✱</i>Track<i>✱</i>Linear<i>✱</i>Outdoor<i>✱</i>Decorative<i>✱</i>Fans<i>✱</i></span>
+</div></div>
+
+<!-- SPACES -->
+<section class="sec spaces in-pad" id="spaces" style="margin-top:12px">
+  <div class="hd rv">
+    <span class="label eye">Applications</span>
+    <h2 class="h2">Find the right light</h2>
+    <p>Not every light does the same job. Here is where each one shines.</p>
+  </div>
+  <div class="rows">
+    <article class="row rv"><figure><img src="img/bar.webp" width="1400" height="1225" alt="Restaurant bar with arched backlit shelving" loading="lazy"></figure><div class="tx"><span class="label" style="color:var(--mute)">Hospitality</span><h3>Light where you want it.</h3><p>Adjustable accents and concealed linears for restaurants, bars and lobbies, so every corner feels considered.</p><a class="tlink" href="#contact">Hospitality lighting <svg><use href="#i-ar"/></svg></a></div></article>
+    <article class="row rv"><figure><img src="img/living.webp" width="1400" height="1471" alt="Living room lit by trimless recessed spots" loading="lazy"></figure><div class="tx"><span class="label" style="color:var(--mute)">Residential</span><h3>No visible outer frame.</h3><p>Trimless deep-recessed spots give a clean, seamless ceiling and reduce glare while delivering focused light.</p><a class="tlink" href="#contact">Residential lighting <svg><use href="#i-ar"/></svg></a></div></article>
+    <article class="row rv"><figure><img src="img/artwall.webp" width="1400" height="1225" alt="Feature wall with artwork under brass track lights" loading="lazy"></figure><div class="tx"><span class="label" style="color:var(--mute)">Retail &amp; gallery</span><h3>Designed to stand out.</h3><p>Track lights direct light exactly where it is needed, for art, feature walls and showrooms.</p><a class="tlink" href="#contact">Track systems <svg><use href="#i-ar"/></svg></a></div></article>
+    <article class="row rv"><figure><img src="img/path-2.webp" width="1400" height="1226" alt="Residential driveway lit by bollards" loading="lazy"></figure><div class="tx"><span class="label" style="color:var(--mute)">Outdoor</span><h3>Guiding outdoor spaces with light.</h3><p>Bollards define pathways without overpowering the landscape, blending into walkways, gardens and driveways.</p><a class="tlink" href="#contact">Outdoor lighting <svg><use href="#i-ar"/></svg></a></div></article>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="sec in-pad" id="experience">
+  <div class="sh rv">
+    <div style="display:grid;gap:14px"><span class="label eye">Experience HYBEC</span><h2 class="h2">From the sun of the Pharaohs <i>to the light of tomorrow.</i></h2></div>
+  </div>
+  <div class="xp">
+    <div class="xp-main rv">
+      <video id="xpVid" src="media/booth.mp4" poster="img/booth.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Walkthrough of the HYBEC pavilion at ACETECH Bengaluru"></video>
+      <div class="xp-panel">
+        <div style="display:grid;gap:12px">
+          <span class="label" style="color:rgba(243,236,226,.6)">ACETECH Bengaluru · 9–11 Oct 2026</span>
+          <h3 id="xpTitle">Inside the pavilion</h3>
+          <p id="xpText">Architectural lighting, decorative lighting and fans under one roof, in a space inspired by Egyptian grandeur.</p>
+        </div>
+        <div class="clips" id="clips">
+          <button aria-pressed="true" data-v="booth" data-h="Inside the pavilion" data-p="Architectural lighting, decorative lighting and fans under one roof, in a space inspired by Egyptian grandeur."><img src="img/booth.jpg" alt="">Pavilion</button>
+          <button aria-pressed="false" data-v="track" data-h="Track &amp; linear" data-p="Magnetic tracks and linear lines that keep the ceiling clean and the light exactly where it’s needed."><img src="img/track.jpg" alt="">Track</button>
+          <button aria-pressed="false" data-v="rings" data-h="Decorative" data-p="Sculpted rings, ribbons and chandeliers that bring a quiet sense of character to every space."><img src="img/rings.jpg" alt="">Decorative</button>
+          <button aria-pressed="false" data-v="fans" data-h="Fans &amp; comfort" data-p="Ceiling fans with integrated light, from the new comfort range shown at ACETECH."><img src="img/fans.jpg" alt="">Fans</button>
+        </div>
+      </div>
+    </div>
+    <div class="xp-side">
+      <div class="reel rv">
+        <video src="media/reel.mp4" poster="img/reel.jpg" muted loop playsinline autoplay preload="metadata" aria-label="The HYBEC team presenting the pavilion"></video>
+        <div class="cap"><b>All solutions, under one roof</b>We consult. We create. We illuminate.</div>
+      </div>
+      <div class="next rv" id="nextStop"></div>
+    </div>
+  </div>
+  <div class="events" id="events"></div>
+</section>
+
+<!-- FAQ -->
+<section class="sec in-pad" id="faq" style="padding-top:0">
+  <div class="faq">
+    <figure class="rv"><img src="img/curve.webp" width="1400" height="1103" alt="Curved corridor washed by a concealed cove"></figure>
+    <div class="tx">
+      <h2 class="h2 rv">Frequently asked questions</h2>
+      <div class="qa rv">
+        <details open><summary><span><span class="n">01</span>Do you offer lighting consultation?</span><span class="circ"><svg><use href="#i-down"/></svg></span></summary><p>Yes. From understanding your requirements to recommending the right solutions, HYBEC works with architects, interior designers and homeowners through every stage of a project.</p></details>
+        <details><summary><span><span class="n">02</span>Can fixtures be customised?</span><span class="circ"><svg><use href="#i-down"/></svg></span></summary><p>Body colour, light colour, beam angle and reflector finish can be specified to suit the design, along with trimless or non-trimless options on selected downlights.</p></details>
+        <details><summary><span><span class="n">03</span>Which colour temperature should I choose?</span><span class="circ"><svg><use href="#i-down"/></svg></span></summary><p>2700K reads warm and intimate for homes and hospitality, 3000K is a balanced warm white, and 4000K suits offices and retail. Our consultants can mock up options on site.</p></details>
+        <details><summary><span><span class="n">04</span>Do you make outdoor and façade lighting?</span><span class="circ"><svg><use href="#i-down"/></svg></span></summary><p>Yes: bollards, in-ground, step and façade lighting designed for landscapes, walkways, driveways and hotel exteriors.</p></details>
+        <details><summary><span><span class="n">05</span>Where can I see HYBEC in person?</span><span class="circ"><svg><use href="#i-down"/></svg></span></summary><p>Visit our experience centre or meet us across the design calendar, including ACETECH and FOAID in Mumbai and New Delhi.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="in-pad">
+    <div class="f-top">
+      <h2>Let’s light your <i>next project.</i></h2>
+      <a class="pill pill--light" href="#top">Book a consultation <span class="ar"><svg><use href="#i-ar"/></svg></span></a>
+    </div>
+    <div class="f-cols">
+      <div style="display:grid;gap:16px;align-content:start">
+        <a class="logo" href="#top" aria-label="HYBEC home"><svg class="mk" viewBox="760 392 525 742" aria-hidden="true"><use href="#s-wings" fill="currentColor"/><use href="#s-sq" class="sq"/></svg><span class="wm"><svg class="w" viewBox="360 1336 1324 172" fill="currentColor" aria-hidden="true"><use href="#s-word"/></svg><svg class="t" viewBox="650 1565 705 85" fill="currentColor" aria-hidden="true"><use href="#s-tag"/></svg></span></a>
+        <p>Innovative, high-quality solutions in indoor, outdoor and architectural lighting. Mumbai, since 1998.</p>
+      </div>
+      <div><h5>Products</h5><ul><li><a href="#collections">Downlights</a></li><li><a href="#collections">Track &amp; linear</a></li><li><a href="#collections">Outdoor</a></li><li><a href="#collections">Decorative &amp; fans</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a href="#about">About</a></li><li><a href="#spaces">Applications</a></li><li><a href="#experience">Events</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h5>Visit</h5><ul><li>Experience centre, Mumbai</li><li><a href="#experience">ACETECH Mumbai · 19–22 Nov</a></li><li><a href="#experience">FOAID New Delhi · 27–28 Nov</a></li></ul></div>
+    </div>
+    <div class="f-base"><span>© HYBEC. Lighting the future.</span><span>Homepage prototype · Beyond Branding Media</span></div>
+  </div>
+  <div class="giant" aria-hidden="true"><svg viewBox="360 1336 1324 172" fill="currentColor"><use href="#s-word"/></svg></div>
+</footer>
+</div>
+
+<script>
+document.documentElement.classList.add('js');
+(function(){
+  const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* intro → hero */
+  const intro=$('#intro');
+  function go(){ intro.classList.add('done'); document.body.classList.add('ready'); }
+  if(reduce){ intro.hidden=true; document.body.classList.add('ready'); } else { setTimeout(go,1700); intro.addEventListener('click',go); }
+
+  /* hero callout pinned to the step light in the photo (image px 1250,1010 of 2400x1351) */
+  const box=$('.hero-media'), call=$('#call'), IW=2400, IH=1351, PX=1255, PY=1000;
+  function place(){ const W=box.clientWidth, H=box.clientHeight, s=Math.max(W/IW,H/IH), ox=(W-IW*s)*.70, oy=(H-IH*s)*.5;
+    call.style.transform=`translate(${ox+PX*s}px,${oy+PY*s}px)`; }
+  place(); addEventListener('resize',place);
+
+  /* menu */
+  const dr=$('#drawer'), mb=$('#menuBtn');
+  mb.addEventListener('click',()=>{dr.hidden=false;mb.setAttribute('aria-expanded','true');});
+  const close=()=>{dr.hidden=true;mb.setAttribute('aria-expanded','false');};
+  $('#drawerClose').addEventListener('click',close); $$('#drawer a').forEach(a=>a.addEventListener('click',close));
+
+  /* hotspots */
+  const tip=$('#tip'), closer=$('#closer');
+  $$('.hs').forEach(h=>h.addEventListener('click',()=>{
+    const open=h.getAttribute('aria-expanded')==='true';
+    $$('.hs').forEach(x=>x.setAttribute('aria-expanded','false'));
+    if(open){ tip.hidden=true; return; }
+    h.setAttribute('aria-expanded','true');
+    const [t,d]=h.dataset.t.split('|'); tip.innerHTML='<b></b>'; tip.firstChild.textContent=t; tip.append(d);
+    tip.hidden=false; const cr=closer.getBoundingClientRect(), hr=h.getBoundingClientRect();
+    let x=hr.left-cr.left+22, y=hr.top-cr.top-8; if(x+180>cr.width) x=hr.left-cr.left-186; tip.style.left=x+'px'; tip.style.top=Math.max(12,y)+'px'; }));
+
+  /* rail arrows */
+  const rail=$('#rail');
+  const step=()=>{ const c=rail.querySelector('.card'); return c? c.getBoundingClientRect().width+12 : 300; };
+  $('#prev').addEventListener('click',()=>rail.scrollBy({left:-step(),behavior:'smooth'}));
+  $('#next').addEventListener('click',()=>rail.scrollBy({left:step(),behavior:'smooth'}));
+
+  /* experience clip switcher */
+  const v=$('#xpVid');
+  $$('#clips button').forEach(b=>b.addEventListener('click',()=>{
+    $$('#clips button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    v.poster='img/'+b.dataset.v+'.jpg'; v.src='media/'+b.dataset.v+'.mp4'; v.play().catch(()=>{});
+    $('#xpTitle').innerHTML=b.dataset.h; $('#xpText').textContent=b.dataset.p; }));
+
+  /* pause off-screen videos */
+  const vio=new IntersectionObserver(es=>es.forEach(e=>{ if(reduce){e.target.pause();return;} e.isIntersecting? e.target.play().catch(()=>{}) : e.target.pause(); }),{threshold:.15});
+  $$('video').forEach(x=>vio.observe(x));
+
+  /* events */
+  const EV=[
+    {s:'2026-10-09',e:'2026-10-11',d:'9–11 Oct 2026',t:'ACETECH',c:'Bengaluru'},
+    {s:'2026-11-19',e:'2026-11-22',d:'19–22 Nov 2026',t:'ACETECH',c:'Mumbai'},
+    {s:'2026-11-27',e:'2026-11-28',d:'27–28 Nov 2026',t:'FOAID',c:'New Delhi'},
+    {s:'2027-01-27',e:'2027-01-28',d:'27–28 Jan 2027',t:'FOAID',c:'Mumbai'}];
+  const D=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}; const now=new Date(); now.setHours(0,0,0,0);
+  const up=EV.filter(e=>D(e.e)>=now); const nx=up[0];
+  if(nx){ const days=Math.round((D(nx.s)-now)/864e5);
+    $('#nextStop').innerHTML=`<span class="label">Next stop</span><strong>${nx.t}, ${nx.c}</strong><span>${nx.d} · ${days>0?'in '+days+' day'+(days===1?'':'s'):'on now'}</span>`; } else $('#nextStop').hidden=true;
+  const list=EV.filter(e=>e!==nx).slice(-3);
+  $('#events').innerHTML=list.map(e=>`<div class="ev ${D(e.e)<now?'past':''}"><span class="label">${e.d}</span><strong>${e.t} · ${e.c}</strong><span>${D(e.e)<now?'Concluded':'Meet the HYBEC team'}</span></div>`).join('');
+
+  /* reveal */
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('seen'); io.unobserve(e.target);} }),{threshold:.12,rootMargin:'0px 0px -5% 0px'});
+    $$('.rv').forEach(el=>io.observe(el));
+  } else document.documentElement.classList.add('no-io');
+})();
+</script>
